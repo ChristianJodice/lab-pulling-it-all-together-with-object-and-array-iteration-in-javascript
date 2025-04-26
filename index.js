@@ -114,3 +114,87 @@ function gameObject() {
         },
     };
 }
+
+// Returns the points scored by the given player
+
+function numPointsScored(playerName) {
+    const game = gameObject();
+    const team = game.home.players[playerName] || game.away.players[playerName];
+    return team.points; 
+}
+
+console.log(numPointsScored("Alan Anderson"));
+console.log(numPointsScored("Reggie Evans"));
+console.log(numPointsScored("Brook Lopez"));
+
+// Returns the shoe size of the given player.
+
+function shoeSize(playerName) {
+    const game = gameObject();
+    const team = game.home.players[playerName] || game.away.players[playerName];
+    return team.shoe;
+}
+
+console.log(shoeSize("Alan Anderson"));
+console.log(shoeSize("Reggie Evans"));
+console.log(shoeSize("Brook Lopez"));
+
+// Returns the team colors for the given team name
+function teamColors(teamName) {
+    const game = gameObject();
+    if (game.home.teamName === teamName) {
+        return game.home.colors;
+    } else if (game.away.teamName === teamName) {
+        return game.away.colors;
+    }
+}
+
+// Returns an array of team names
+function teamNames() {
+    const game = gameObject();
+    return [game.home.teamName, game.away.teamName];
+}
+
+// Returns an array of player numbers for the given team
+function playerNumbers(teamName) {
+    const game = gameObject();
+    let players;
+    if (game.home.teamName === teamName) {
+        players = game.home.players;
+    } else if (game.away.teamName === teamName) {
+        players = game.away.players;
+    }
+    return Object.values(players).map(player => player.number);
+}
+
+// Returns the stats for the given player
+function playerStats(playerName) {
+    const game = gameObject();
+    return game.home.players[playerName] || game.away.players[playerName];
+}
+
+// Returns the number of rebounds for the player with the biggest shoe size
+function bigShoeRebounds() {
+    const game = gameObject();
+    let biggestShoe = 0;
+    let rebounds = 0;
+    
+    // Check home team players
+    Object.values(game.home.players).forEach(player => {
+        if (player.shoe > biggestShoe) {
+            biggestShoe = player.shoe;
+            rebounds = player.rebounds;
+        }
+    });
+    
+    // Check away team players
+    Object.values(game.away.players).forEach(player => {
+        if (player.shoe > biggestShoe) {
+            biggestShoe = player.shoe;
+            rebounds = player.rebounds;
+        }
+    });
+    
+    return rebounds;
+}
+
